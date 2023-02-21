@@ -23,6 +23,8 @@ import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import GradingIcon from '@mui/icons-material/Grading';
 import { redirect } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import {push} from "./navigationSlice";
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -35,6 +37,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 export function LeftNav() {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   type Anchor = 'Menu';
   const [state, setState] = React.useState({
@@ -57,7 +60,8 @@ export function LeftNav() {
     console.log("menu item clicked: " + menuItem);    
     switch (menuItem) {
       case 'Home':
-        console.log("Redirecting to: " + '/');    
+        console.log("Redirecting to: " + '/'); 
+        dispatch(push("/"));   
         navigate("/")
         break;
       case 'Assignments':
@@ -75,7 +79,8 @@ export function LeftNav() {
       case 'Logout':
         break;
       case 'Register': 
-        console.log("Redirecting to: " + '/register');    
+        console.log("Redirecting to: " + '/register');
+        dispatch(push("/register"));       
         navigate("/register")
         break;
       default:

@@ -3,7 +3,8 @@ import config from "../config/auth.config.js"
 import bcrypt from 'bcryptjs'
 import asyncHandler from 'express-async-handler'
 import User from '../models/user.model.js'
-
+import bodyParser from 'body-parser'
+import mongoose from 'mongoose';
 // @desc    Register new user
 // @route   POST /api/users/add
 // @access  Public

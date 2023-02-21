@@ -100,3 +100,5 @@ declare global {
   }
 }
 window.initAutocomplete = initAutocomplete;
+
+export default initAutocomplete

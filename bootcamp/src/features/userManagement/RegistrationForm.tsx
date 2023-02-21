@@ -12,6 +12,7 @@ import { User } from "../../models/UserProfileModel";
 import { addUser } from "../../data/UserApi";
 
 function RegistrationForm(props: any) {
+	const [success, setSuccess] = useState(false);	
 	const store = useStore();
 	const [name, setName] = useState("");	
 	const [email, setEmail] = useState("");
@@ -32,12 +33,15 @@ function RegistrationForm(props: any) {
 		store
 			.dispatch(action)
 			.unwrap()
+			.then(profileComplete)
 			.catch((error: any) => {
 				console.log(error);
 			});
 		//e.target.reset();
 	};
-
+	const profileComplete = () => {
+		setSuccess(true);
+	};
 	const handleChange = (newValue: Dayjs | null) => {
 		setBirthday(newValue);
 	};
@@ -82,7 +86,13 @@ function RegistrationForm(props: any) {
 					</Grid>
 				</LocalizationProvider>
 			</form>
+			{	success && 
+				<div className="registration-success">
+					<h3>Profile Registered!</h3>
+				</div>  
+			}
 		</div>
+		
 	);
 }
 

@@ -1,6 +1,6 @@
 import { LensTwoTone } from '@mui/icons-material';
 import { useRadioGroup } from '@mui/material';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, Slice } from '@reduxjs/toolkit'
 import userService, { addUser, login, logout } from '../../data/UserApi'
 import { RootState } from '../../app/store';
 import {Profile} from '../../models/UserProfileModel'
@@ -34,7 +34,7 @@ const initialState = {
 
 
 
-export const authSlice = createSlice({
+export const authSlice : Slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
