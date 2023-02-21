@@ -1,10 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import { HomePage } from './features/homePage/HomePage';
+import { RegistrationPage } from './features/userManagement/RegistrationPage';
 import './App.css';
 import { RightNav } from './features/navigation/RightNav';
 import {LeftNav} from './features/navigation/LeftNav';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
@@ -13,14 +14,16 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Welcome to JS Bootcamp</h1>
       </header>
-      <body className="App-body">
+      <div className="App-body">
         <div className="App-left"><LeftNav /></div>
         <div className='App-center'>
-          <HomePage />
-        </div>
+          <div id="main-content">
+            <Outlet />
+          </div>
+          </div>
         <div className='App-right'><RightNav/></div>
        
-      </body>
+      </div>
   
     </div>
   );

@@ -21,7 +21,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import GradingIcon from '@mui/icons-material/Grading';
-
+import { redirect } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -34,6 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 export function LeftNav() {
+  const navigate = useNavigate();
   type Anchor = 'Menu';
   const [state, setState] = React.useState({
     Menu: false    
@@ -51,8 +53,38 @@ export function LeftNav() {
 
     setState({ ...state, [anchor]: open });
   };
+  const handleClick = (menuItem: string) => {
+    console.log("menu item clicked: " + menuItem);    
+    switch (menuItem) {
+      case 'Home':
+        console.log("Redirecting to: " + '/');    
+        navigate("/")
+        break;
+      case 'Assignments':
+        break;
+      case 'Attendance':
+        break;
+      case 'Grades':
+        break;
+      case 'Settings':
+        break;
+      case 'Profile':
+        break;
+      case 'Login':
+        break;
+      case 'Logout':
+        break;
+      case 'Register': 
+        console.log("Redirecting to: " + '/register');    
+        navigate("/register")
+        break;
+      default:
+        console.log('Register the new route: ' + menuItem);
+  };
+}
   
   const list = (anchor: Anchor) => (
+
     <Box
       sx={{ width: 280 }}
       role="presentation"
@@ -61,7 +93,7 @@ export function LeftNav() {
     >
       <List>
         <ListItem key='Home' disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleClick('Home')} >
               <ListItemIcon>
                 <HomeIcon/>
               </ListItemIcon>
@@ -69,15 +101,15 @@ export function LeftNav() {
             </ListItemButton>
           </ListItem>
           <ListItem key='Assignments' disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleClick('Assignments')} >
               <ListItemIcon>
                 <AssignmentIcon/>
               </ListItemIcon>
               <ListItemText primary='Assignments' />
             </ListItemButton>
           </ListItem>
-          <ListItem key='Attendance' disablePadding>
-            <ListItemButton>
+          <ListItem key='Attendance' disablePadding >
+            <ListItemButton onClick={() => handleClick('Attendance')} >
               <ListItemIcon>
                 <EventRepeatIcon/>
               </ListItemIcon>
@@ -85,7 +117,7 @@ export function LeftNav() {
             </ListItemButton>
           </ListItem>
           <ListItem key='Grades' disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleClick('Grades')} >
               <ListItemIcon>
                 <GradingIcon/>
               </ListItemIcon>
@@ -96,7 +128,7 @@ export function LeftNav() {
       <Divider />
       <List>
         <ListItem key='Settings' disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleClick('Settings')} >
               <ListItemIcon>
               <SettingsIcon/>
               </ListItemIcon>
@@ -104,11 +136,35 @@ export function LeftNav() {
             </ListItemButton>
           </ListItem>
           <ListItem key='Profile' disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleClick('Profile')} >
               <ListItemIcon>
               <PersonIcon/>
               </ListItemIcon>
               <ListItemText primary='Profile' />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key='Login' disablePadding>
+            <ListItemButton onClick={() => handleClick('Login')} >
+              <ListItemIcon>
+              <PersonIcon/>
+              </ListItemIcon>
+              <ListItemText primary='Login' />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key='Logout' disablePadding>
+            <ListItemButton onClick={() => handleClick('Logout')} >
+              <ListItemIcon>
+              <PersonIcon/>
+              </ListItemIcon>
+              <ListItemText primary='Logout' />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key='Register' disablePadding>
+            <ListItemButton onClick={() => handleClick('Register')} >
+              <ListItemIcon>
+              <PersonIcon/>
+              </ListItemIcon>
+              <ListItemText primary='Register' />
             </ListItemButton>
           </ListItem>
       </List>
@@ -117,21 +173,22 @@ export function LeftNav() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-      <Grid xs={12}>
-        {(['Menu'] as const).map((anchor) => (
-        <React.Fragment key={anchor}>
-          <FormLabel>{anchor}</FormLabel> <br/>
-          <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
-          <Drawer
-            anchor='left'
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
-      </Grid></Grid>
+        <Grid xs={12}>
+            {(['Menu'] as const).map((anchor) => (
+            <React.Fragment key={anchor}>
+              <FormLabel>{anchor}</FormLabel> <br/>
+              <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+              <Drawer
+                anchor='left'
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))}
+        </Grid>
+      </Grid>
     </Box>
   );
 }

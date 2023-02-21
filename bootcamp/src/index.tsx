@@ -5,15 +5,38 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import ErrorPage from './features/shared/ErrorPage';
+import { RegistrationPage } from './features/userManagement/RegistrationPage';
 import { HomePage } from './features/homePage/HomePage';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
-
+const router = createBrowserRouter([
+  {
+    path: "",
+    element: <App/>,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/register",
+        element: <RegistrationPage />,
+      },
+    ],
+  },
+]);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );
