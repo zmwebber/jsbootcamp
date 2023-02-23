@@ -1,0 +1,19 @@
+.icon{
+    color: #1DA1F2;
+}
+
+.login {
+    /* outline: auto;
+    outline-color: rgba(0, 0, 0, 0.1); */
+    min-height: 30rem;
+    min-width: 45rem;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+}

@@ -13,6 +13,7 @@ import {
 import ErrorPage from './features/shared/ErrorPage';
 import { RegistrationPage } from './features/userManagement/RegistrationPage';
 import { HomePage } from './features/homePage/HomePage';
+import { LoginPage } from './features/userManagement/LoginPage';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <RegistrationPage />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
   },
 ]);
 root.render(

@@ -11,20 +11,21 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import { FormLabel } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import GradingIcon from '@mui/icons-material/Grading';
-import { redirect } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import {push} from "./navigationSlice";
+import {logout} from '../userManagement/userSlice'
+import { useStore } from 'react-redux';
+import FormLabel from '@mui/material/FormLabel';
+import MenuIcon from '@mui/icons-material/Menu';
+import { increment } from '../counter/counterSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -33,10 +34,8 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
- 
-
-
 export function LeftNav() {
+  const store = useStore();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   type Anchor = 'Menu';
@@ -75,8 +74,17 @@ export function LeftNav() {
       case 'Profile':
         break;
       case 'Login':
+        console.log("Redirecting to: " + '/login'); 
+        dispatch(push("/login"));   
+        navigate("/login");
         break;
       case 'Logout':
+        console.log("Logging Out: ");
+        localStorage.removeItem('user');
+        dispatch(logout());			
+        console.log("Redirecting to: " + '/login'); 
+        dispatch(push("/login"));   
+        navigate("/login");
         break;
       case 'Register': 
         console.log("Redirecting to: " + '/register');

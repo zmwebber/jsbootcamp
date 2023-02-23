@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, Slice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, Slice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store';
 
 export interface NavigationState {  
@@ -26,13 +26,6 @@ export const navigationSlice : Slice= createSlice({
         state.history.push(action.payload)
         }
     },
-    // extraReducers: (builder) => {
-    //   builder
-    //     // .addCase(navigate.pending, (state) => {
-    //     //   state.isLoading = true
-    //     // })
-        
-    // },
   })
   
   export const { reset, push } = navigationSlice.actions;

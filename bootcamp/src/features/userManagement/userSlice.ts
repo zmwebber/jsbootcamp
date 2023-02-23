@@ -1,8 +1,6 @@
-import { LensTwoTone } from '@mui/icons-material';
-import { useRadioGroup } from '@mui/material';
-import { createSlice, createAsyncThunk, Slice } from '@reduxjs/toolkit'
-import userService, { addUser, login, logout } from '../../data/UserApi'
-import { RootState } from '../../app/store';
+import { createSlice, Slice, PayloadAction } from '@reduxjs/toolkit'
+import { addUser, login } from '../../data/UserApi'
+import { RootState, AppThunk } from '../../app/store';
 import {Profile} from '../../models/UserProfileModel'
 // Get user from localStorage
 
@@ -22,20 +20,22 @@ export interface UserState {
   isSuccess: boolean,
   isLoading: boolean,
   message: string,
+  loginSuccess: boolean
   }
 
-const initialState = { 
+const initialState : UserState= { 
   profile : user,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: '',
+  loginSuccess: false
 }
 
 
 
-export const authSlice : Slice = createSlice({
-  name: 'auth',
+export const authSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
     reset: (state) => {
@@ -43,48 +43,58 @@ export const authSlice : Slice = createSlice({
       state.isSuccess = false
       state.isError = false
       state.message = ''
+      state.loginSuccess = false
+    },
+    logout: (state) => {      
+      state.profile = undefined
+      state.isLoading = false
+      state.isSuccess = false
+      state.isError = false
+      state.message = 'Successfully Logged Out'
+      state.loginSuccess = false
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(addUser.pending, (state) => {
         state.isLoading = true
+        state.loginSuccess = false
       })
       .addCase(addUser.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.profile = action.payload
+        state.loginSuccess = false
       })
       .addCase(addUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = "Failed to save user!"
         state.profile = undefined
+        state.loginSuccess = false
       })
       .addCase(login.pending, (state) => {
+        state.loginSuccess = false
         state.isLoading = true
       })
       .addCase(login.fulfilled, (state, action) => {
+        state.profile = action.payload ? action.payload : undefined
+        state.loginSuccess = true
         state.isLoading = false
+        state.isError = false
+        state.message = "Successfully logged in."
         state.isSuccess = true
-        state.profile = action.payload? action.payload : undefined
       })
       .addCase(login.rejected, (state, action) => {
+        state.loginSuccess = false
         state.isLoading = false
         state.isError = true
-        state.message = "Failed to login!"
+        state.message = "Invalid Login Attepmt!"
+        state.isSuccess = false
         state.profile = undefined
-      })
-      .addCase(logout.fulfilled, (state) => {
-        state.profile = undefined
-      })
+      })      
   },
 })
 
-export const { reset } = authSlice.actions;
-
-export const selectUser = (
-		(state: RootState) => state.user.profile
-	);
-
+export const { reset, logout } = authSlice.actions;
 export default authSlice.reducer

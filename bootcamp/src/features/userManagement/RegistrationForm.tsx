@@ -88,7 +88,7 @@ function RegistrationForm(props: any) {
 			</form>
 			{	success && 
 				<div className="registration-success">
-					<h3>Profile Registered!</h3>
+					<h3>Profile Submitted to DB!</h3>					
 				</div>  
 			}
 		</div>
