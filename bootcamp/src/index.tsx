@@ -14,6 +14,7 @@ import ErrorPage from './features/shared/ErrorPage';
 import { RegistrationPage } from './features/userManagement/RegistrationPage';
 import { HomePage } from './features/homePage/HomePage';
 import { LoginPage } from './features/userManagement/LoginPage';
+import { ProfilePage } from './features/profile/ProfilePage';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
       {
         path: "/register",

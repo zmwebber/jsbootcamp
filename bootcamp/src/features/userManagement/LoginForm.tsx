@@ -7,19 +7,17 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useNavigate } from "react-router-dom";
 import styles from './Login.module.css';
 import { StaticDatePicker } from "@mui/x-date-pickers";
-
 import { selectOptions } from "@testing-library/user-event/dist/types/setup/directApi";
 import { User } from "../../models/UserProfileModel";
 import { login } from "../../data/UserApi";
-
-
-
+import { useAppDispatch } from "../../app/hooks";
+import { push } from "../navigation/navigationSlice";
 
 function Login(props: any) {
 	const navigate = useNavigate();
 	const store = useStore();
 	const state: any = store.getState();
-
+	const dispatch = useAppDispatch();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loginAttempted, setloginAttempted] = useState(false);
@@ -50,7 +48,8 @@ function Login(props: any) {
 
 		if (currentState.user.profile.token !== null && currentState.user.loginSuccess == true) { // Change eventually from toxen exists -> token is valid and isn't expired
 			console.log("Login Success, redirected to Home");
-			navigate("/") //fixme: put navigates into state
+			dispatch(push("/"));  
+			navigate("/");
 		}
 	}
 
@@ -129,7 +128,7 @@ function Login(props: any) {
 									</Link>
 								</Grid>
 								<Grid item>
-									<Link href="#" variant="body2">
+									<Link href="/register" variant="body2">
 										{"Don't have an account? Sign Up"}
 									</Link>
 								</Grid>

@@ -51,30 +51,32 @@ function RegistrationForm(props: any) {
 			<form onSubmit={profileSubmit}>
 				<LocalizationProvider dateAdapter={AdapterDayjs}>
 					<Grid container direction="column" className="container">
-						<Grid item>
+						<Grid mt={2} item>
 							<TextField
 								name="Name"
 								type="text"
 								id="name"
 								placeholder="FirstName LastName"
 								onChange={(e) => setName(e.target.value)}
-							/>							
+							/></Grid>
+						<Grid mt={2} item>								
 							<TextField
 								name="Email"
 								type="text"
 								id="email"
 								placeholder="someone@example.com"
 								onChange={(e) => setEmail(e.target.value)}
-							/>
+							/></Grid>
+							<Grid mt={2} item>		
 							<TextField
 								name="Password"
 								type="text"
 								id="password"
 								placeholder="Strong Password"
 								onChange={(e) => setPassword(e.target.value)}
-							/>
-							<DesktopDatePicker
-								label="Date desktop"
+							/></Grid>
+							<Grid item mt={2}>	<DesktopDatePicker
+								label="Date of Birth"
 								inputFormat="MM/DD/YYYY"
 								value={birthday}
 								onChange={handleChange}
@@ -82,7 +84,8 @@ function RegistrationForm(props: any) {
 							/>
 							{/* TODO: Put Code for Autocomplete Here */}
 						</Grid>
-						<Button type="submit">Register User</Button>
+						<Grid item mt={2}>	
+						<Button variant="contained" type="submit">{props.buttonText || "Register User"}</Button></Grid>
 					</Grid>
 				</LocalizationProvider>
 			</form>

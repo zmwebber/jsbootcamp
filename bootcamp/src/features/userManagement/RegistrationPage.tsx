@@ -11,7 +11,7 @@ export function RegistrationPage() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid xs={12} md={12}>
-            <RegistrationForm/>
+            <RegistrationForm buttonText="Register User" />
           </Grid>
         </Grid>
       </Box>

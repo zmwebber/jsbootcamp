@@ -72,6 +72,9 @@ export function LeftNav() {
       case 'Settings':
         break;
       case 'Profile':
+        console.log("Redirecting to: " + '/Profile'); 
+        dispatch(push("/profile"));   
+        navigate("/profile");
         break;
       case 'Login':
         console.log("Redirecting to: " + '/login'); 
