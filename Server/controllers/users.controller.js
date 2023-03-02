@@ -83,6 +83,18 @@ export const getCurrentUser = asyncHandler(async (req, res) => {
 
 // Need method to update user information
 
+export const updateUser = asyncHandler(async (req, res) => {
+  
+  const user = await User.findByIdAndUpdate(req.body._id, req.body)
+
+  if (user){
+    res.status(200).json(user);
+  } else {
+    res.status(400)
+    throw new Error('Invalid user data')
+  }
+  })
+
 
 // Generate JWT
 const generateToken = (id) => {
@@ -91,4 +103,4 @@ const generateToken = (id) => {
   })
 }
 
-export default {registerUser, loginUser, getCurrentUser}
+export default {registerUser, loginUser, getCurrentUser, updateUser}
