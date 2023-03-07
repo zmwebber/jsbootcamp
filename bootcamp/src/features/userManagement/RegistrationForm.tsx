@@ -14,7 +14,9 @@ import { RootState } from "../../app/store";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
 
 function RegistrationForm(props: any) {
-	const [success, setSuccess] = useState(false);	
+	const [success, setSuccess] = useState(false);
+	const [successMessage, setSuccessMessage] = useState<string>("");
+	const [actionType, setActionType] = useState<string>("");
 	const store = useStore();
 
 	const state: any = store.getState();
@@ -60,10 +62,10 @@ function RegistrationForm(props: any) {
 			}
 			else{
 				//no changes?
-				console.log('no changes')
+				console.log('no changes');
 				return;
-			}
-
+			}			
+			setActionType("updateUser");
 			action = updateUser(user);
 		}
 		//no profile, new user
@@ -76,6 +78,7 @@ function RegistrationForm(props: any) {
 			}
 			user.name = name;
 			console.log(user);
+			setActionType("addUser");
 			action = addUser(user);
 		}       
 
@@ -89,6 +92,19 @@ function RegistrationForm(props: any) {
 	};
 	const profileComplete = () => {
 		setSuccess(true);
+		if(actionType == "addUser")
+		{
+			setSuccessMessage("Profile Submitted to DB!");
+		}
+		else if (actionType == "updateUser")
+		{
+			setSuccessMessage("Profile Updated!");
+		}
+		else{
+			setSuccessMessage("No Profile Changes!");
+		}
+		
+
 	};
 	const handleChange = (newValue: Dayjs | null) => {
 		setBirthday(newValue);
@@ -143,9 +159,9 @@ function RegistrationForm(props: any) {
 			</form>
 			{	success && 
 				<div className="registration-success">
-					<h3>Profile Submitted to DB!</h3>					
+					<h3>{successMessage}</h3>					
 				</div>  
-			}
+			}			
 		</div>
 		
 	);
