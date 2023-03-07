@@ -14,8 +14,7 @@ import { RootState } from "../../app/store";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
 
 function RegistrationForm(props: any) {
-	const [success, setSuccess] = useState(false);
-	const [successMessage, setSuccessMessage] = useState<string>("");
+	const [success, setSuccess] = useState(false);	
 	const [actionType, setActionType] = useState<string>("");
 	const store = useStore();
 
@@ -35,7 +34,7 @@ function RegistrationForm(props: any) {
 		if(userProfile )
 		{
 			console.log('profile exists')
-
+			
 			//create a copy of the state profile
 			var user : User = {...userProfile};					
 			// see what has changed from the user profile
@@ -63,22 +62,23 @@ function RegistrationForm(props: any) {
 			else{
 				//no changes?
 				console.log('no changes');
+				setActionType("No Changes");
 				return;
 			}			
-			setActionType("updateUser");
+			setActionType("User Updated");
 			action = updateUser(user);
 		}
 		//no profile, new user
 		else{
 
 			console.log('new profile')
+			setActionType("User Added");
 			const user = new User(email, password);
 			if (birthday !== null && birthday !== undefined) {
 				user.dateOfBirth = new Date(birthday.date());
 			}
 			user.name = name;
-			console.log(user);
-			setActionType("addUser");
+			console.log(user);			
 			action = addUser(user);
 		}       
 
@@ -92,19 +92,6 @@ function RegistrationForm(props: any) {
 	};
 	const profileComplete = () => {
 		setSuccess(true);
-		if(actionType == "addUser")
-		{
-			setSuccessMessage("Profile Submitted to DB!");
-		}
-		else if (actionType == "updateUser")
-		{
-			setSuccessMessage("Profile Updated!");
-		}
-		else{
-			setSuccessMessage("No Profile Changes!");
-		}
-		
-
 	};
 	const handleChange = (newValue: Dayjs | null) => {
 		setBirthday(newValue);
@@ -159,7 +146,7 @@ function RegistrationForm(props: any) {
 			</form>
 			{	success && 
 				<div className="registration-success">
-					<h3>{successMessage}</h3>					
+					<h3>{actionType}</h3>					
 				</div>  
 			}			
 		</div>

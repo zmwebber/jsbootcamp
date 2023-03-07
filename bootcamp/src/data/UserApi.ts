@@ -30,7 +30,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
       try {
         const response = await API.post(API_URL + 'update/', user)
         if (response.data) {
-          localStorage.setItem('user', JSON.stringify(response.data))
+          localStorage.setItem('user', JSON.stringify(response.data.user))
         }
         return response.data
       } catch (err: any) {
