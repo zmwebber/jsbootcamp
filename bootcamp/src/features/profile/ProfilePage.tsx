@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useSelector, useDispatch, useStore } from "react-redux";
 import { User } from '../../models/UserProfileModel';
 import { RootState } from '../../app/store';
+import dayjs, { Dayjs } from "dayjs";
 
 export function ProfilePage() {
     const store = useStore();
@@ -59,7 +60,7 @@ export function ProfilePage() {
                                 </Grid>
                                 <Grid container>
                                     <Grid xs={4} md={4}><Typography>Date of Birth:</Typography></Grid>
-                                    <Grid xs={8} md={8}><Typography>{ userProfile?.dateOfBirth.toString() || "MM/DD/YYYY"}</Typography></Grid>
+                                    <Grid xs={8} md={8}><Typography>{ dayjs(userProfile?.dateOfBirth).toDate().toDateString() || "MM/DD/YYYY"}</Typography></Grid>
                                 </Grid>
                                 <Grid container>
                                     <Grid xs={4} md={4}><Typography>Address:</Typography></Grid>
@@ -73,8 +74,7 @@ export function ProfilePage() {
                                 <Button variant="outlined" startIcon={<EditOffIcon />} onClick={handleClose}>
                                     Cancel
                                 </Button>
-                                <RegistrationForm buttonText="Update User"/>
-                                <RegistrationForm />
+                                <RegistrationForm buttonText="Update User"/>                               
                             </Item>}
                     </Grid>
                     <Grid xs={12} md={6} id="profile-settings">

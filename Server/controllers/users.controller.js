@@ -82,7 +82,24 @@ export const getCurrentUser = asyncHandler(async (req, res) => {
 })
 
 // Need method to update user information
-
+export const updateUser = asyncHandler(async (req, res) =>  {
+  console.log('updateUser') //debugging
+  console.log('req: ' + JSON.stringify(req.body)) //make sure your request from postman is what you are sending over
+ const userResponse = await User.findOneAndUpdate({ _id:req.body._id }, req.body, { new: true})
+   if (userResponse) {
+    res.status(201).json({
+      'success':true,
+      'message':'User updated successfully',
+      'user': userResponse
+    })
+  } else {
+    res.status(400).json({
+      'success':false,
+      'message':'updateUser method failed, user not found with _id: ' + req.body._id,
+      'user': userResponse
+    })
+  }
+})
 
 // Generate JWT
 const generateToken = (id) => {

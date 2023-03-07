@@ -1,16 +1,16 @@
 export type Profile = {
     _id?: string | null,
-    name: String,
-    email: String,
-    password: String,
+    name: string,
+    email: string,
+    password: string,
     dateOfBirth:Date,
     createdAt: Date,   
         modifiedAt: Date,
-        address1: String,
-        address2: String,
-         city: String,
-        state: String,
-        zipCode: String,
+        address1: string,
+        address2: string,
+         city: string,
+        state: string,
+        zipCode: string,
 }
 
 export class User implements Profile {

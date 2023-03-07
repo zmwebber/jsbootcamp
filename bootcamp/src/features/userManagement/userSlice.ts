@@ -1,5 +1,5 @@
 import { createSlice, Slice, PayloadAction } from '@reduxjs/toolkit'
-import { addUser, login } from '../../data/UserApi'
+import { addUser, login, updateUser } from '../../data/UserApi'
 import { RootState, AppThunk } from '../../app/store';
 import {Profile} from '../../models/UserProfileModel'
 // Get user from localStorage
@@ -67,6 +67,23 @@ export const authSlice = createSlice({
         state.loginSuccess = false
       })
       .addCase(addUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = "Failed to save user!"
+        state.profile = undefined
+        state.loginSuccess = false
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true
+        state.loginSuccess = false
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.profile = action.payload.user
+        state.loginSuccess = false
+      })
+      .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = "Failed to save user!"
