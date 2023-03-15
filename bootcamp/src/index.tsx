@@ -15,6 +15,7 @@ import { RegistrationPage } from './features/userManagement/RegistrationPage';
 import { HomePage } from './features/homePage/HomePage';
 import { LoginPage } from './features/userManagement/LoginPage';
 import { ProfilePage } from './features/profile/ProfilePage';
+import { UserManagementPage } from './features/userManagement/UserManagementPage';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegistrationPage />,
+      },
+      {
+        path: "/users",
+        element: <UserManagementPage />,
       },
     ],
   },

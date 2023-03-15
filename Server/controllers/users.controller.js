@@ -108,4 +108,24 @@ const generateToken = (id) => {
   })
 }
 
-export default {registerUser, loginUser, getCurrentUser}
+// @desc    Get all user data
+// @route   GET /api/users/getAll
+// @access  Private
+export const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find().select({password:0});
+  if (users) {
+    res.status(201).json({
+      'success':true,
+      'message':'User updated successfully',
+      'users': users
+    })
+  } else {
+    res.status(400).json({
+      'success':false,
+      'message':'cannot find users',
+      'user': users
+    })
+  }
+})
+
+export default {registerUser, loginUser, getCurrentUser, getAllUsers}

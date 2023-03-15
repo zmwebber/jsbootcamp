@@ -9,6 +9,7 @@
     "@googlemaps/js-api-loader": "^1.15.1",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
+    "@mui/x-data-grid": "^6.0.1",
     "@mui/x-date-pickers": "^5.0.19",
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",

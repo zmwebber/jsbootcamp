@@ -19,12 +19,12 @@ export class User implements Profile {
     password;
     dateOfBirth;
     createdAt;  
-        modifiedAt;
-        address1;
-        address2;
-         city;
-        state;
-        zipCode;
+    modifiedAt;
+    address1;
+    address2;
+    city;
+    state;
+    zipCode;
 
     constructor(email: string, password: string) {
         this.name = ""       

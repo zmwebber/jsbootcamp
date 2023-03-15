@@ -64,10 +64,27 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
         }
       })
   
+      export const getAllUsers = createAsyncThunk(
+        "users/getAll",
+        async (BaseThunk: any) => {
+          try {
+            const response = await API.get(API_URL + 'getAll')   
+            return response.data.users
+          } catch (err: any) {
+            let error: AxiosError = err;
+            const message =
+              (err.response && err.response.data && err.response.data.message) ||
+              err.message ||
+              err.toString()
+            console.log(err);
+            return BaseThunk.rejectWithValue(message)
+          }
+        })
   const userService = {
     addUser,
     login,
     updateUser,
+    getAllUsers
   }
   
   export default userService
